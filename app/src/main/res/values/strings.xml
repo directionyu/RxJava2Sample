@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RxJava2Sample</string>
+    <string name="doSomething">ToDo</string>
+    <string name="operator_create">Create</string>
+</resources>
