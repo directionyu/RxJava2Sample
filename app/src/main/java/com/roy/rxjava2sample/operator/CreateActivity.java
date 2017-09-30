@@ -60,18 +60,20 @@ public class CreateActivity extends BaseActivity {
                 e.onNext(4);
             }
         }).subscribe(new Observer<Integer>() {
-            private int i;
+            private int i = 0;
             // Disposable相当于Rxjava1中的Subscription，用于取消订阅
             private Disposable mDisposable;
 
             @Override
             public void onSubscribe(Disposable d) {
+                mRxOperatorsText.append("onSubscribe : " + d.isDisposed() + "\n");
                 mDisposable = d;
             }
 
             @Override
             public void onNext(Integer integer) {
                 Log.e(TAG, "onNext : isDisposable : " + mDisposable.isDisposed() + "\n");
+                mRxOperatorsText.append("onNext : value : " + integer + "\n");
                 i++;
                 if (i == 2) {
                     // 在RxJava 2.x 中，新增的Disposable可以做到切断的操作，让Observer观察者不再接收上游事件
@@ -81,11 +83,13 @@ public class CreateActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable e) {
+                mRxOperatorsText.append("onError : value : " + e.getMessage() + "\n");
                 Log.e(TAG, "onError : value : " + e.getMessage() + "\n" );
             }
 
             @Override
             public void onComplete() {
+                mRxOperatorsText.append("onComplete" + "\n");
                 Log.e(TAG, "onComplete" + "\n" );
             }
         });
